@@ -1,86 +1,64 @@
-Investment Calculator
-A React-based investment calculator that helps you visualize the growth of your investments over time. Whether you're planning for retirement or exploring different investment scenarios, this tool provides real-time calculations and an intuitive user interface to guide your financial decisions.
+Pokedex App
+A comprehensive, full-stack Pokedex application in progress. This project aims to offer an extensive Pokémon encyclopedia with advanced features including user authentication, personalized profiles, and more. Currently, the focus is on an extensive and polished front-end, with plans to integrate a robust back-end soon.
+
+Table of Contents
+Overview
 
 Features
-Real-Time Calculations: Instantly view the impact of different investment amounts, interest rates, and durations.
 
-User-Friendly Interface: Built with React for a responsive and dynamic user experience.
-
-Customizable Inputs: Easily adjust parameters like the initial investment, interest rate, and investment period.
-
-Responsive Design: Optimized for desktops, tablets, and mobile devices.
+Built With
 
 Getting Started
-These instructions will help you set up and run the project on your local machine.
 
-Prerequisites
-Node.js (v10 or later)
+Planned Enhancements
 
-npm (v6 or later)
+Contributing
 
-Installation
-1 - Clone the repository:
-git clone https://github.com/MarcosHBlanco/Investment_Calculator.git
-
-2 - Navigate to the project directory:
-cd Investment_Calculator
-
-3 - Install dependencies:
-npm install
-
-Running the Application
-Start the development server by running:
-npm run server
-
-The application will be available at http://localhost:3000.
-
-Project Structure
-An overview of the project structure:
-
-java
-Copiar
-Investment_Calculator/
-├── public/
-│ ├── index.html
-│ └── ...
-├── src/
-│ ├── components/
-│ │ ├── Calculator.js
-│ │ └── (Chart.js - if applicable)
-│ ├── App.js
-│ ├── index.js
-│ └── styles/
-│ └── App.css
-├── package.json
-└── README.md
-Built With
-React: A JavaScript library for building user interfaces.
-
-JavaScript, HTML, and CSS: Core technologies for web development.
-
-Contributing:
-Contributions are welcome! If you have suggestions, bug fixes, or new features, feel free to fork the repository and submit a pull request. Here's a simple workflow:
-
-Fork the repository.
-
-Create your feature branch:
-git checkout -b feature/YourFeature
-
-Commit your changes:
-git commit -m 'Add some feature'
-
-Push to the branch:
-git push origin feature/YourFeature
-Open a pull request.
-
-Acknowledgements
-Thanks to the open-source community and the many resources available online.
-
-Appreciation to all contributors who have helped improve this project.
+License
 
 Contact
-For questions or further discussions, please contact:
 
+Overview
+The Pokedex App is designed to be your ultimate resource for everything Pokémon. Whether you want to browse through detailed Pokémon data, search by name or type, or get insights into stats and abilities, this app provides an intuitive interface for both casual fans and serious enthusiasts.
+Note: This project is a work in progress. The current version focuses on the front-end experience, while a full-stack back-end with user login and authentication is under development.
+
+Features
+Extensive Pokémon Data: Browse detailed information about various Pokémon including stats, types, abilities, and more.
+
+Search & Filter: Quickly find Pokémon by name, type, or other attributes.
+
+Responsive Front-End: A modern, responsive design built to work seamlessly on desktops, tablets, and mobile devices.
+
+User Interface: Clean and engaging UI for an optimal user experience.
+
+Future Full-Stack Functionality: Planned integration of a secure back-end with user authentication, personalized profiles, and additional interactive features.
+
+Built With
+Front-End:
+
+React – For building the user interface.
+
+Tailwind - For styling purposes
+
+HTML & CSS – For structure and styling.
+
+Back-End (Upcoming):
+
+Node.js and Express – To power the server and APIs.
+
+[Database] – (e.g., MongoDB, PostgreSQL, SQLite) for data persistence and user management.
+
+Planned Enhancements
+User Authentication: Implementation of a secure login/signup system.
+
+Back-End Integration: Full-stack API integration to manage Pokémon data and user profiles.
+
+Enhanced Interactivity: Additional features such as favoriting Pokémon, user stats, and custom collections.
+
+Contributing
+Contributions are welcome! If you have suggestions, bug fixes, or new feature ideas, feel free to contact me!
+
+Contact
 Marcos H. Blanco
 GitHub: MarcosHBlanco
-Project Link: https://github.com/MarcosHBlanco/Investment_Calculator
+Project Link: https://github.com/MarcosHBlanco/Pokedex-App
