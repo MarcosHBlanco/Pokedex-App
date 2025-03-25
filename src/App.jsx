@@ -57,8 +57,7 @@ function App() {
 			})
 			.then((detailedPokemons) => {
 				setShowingPokedex(false);
-				setPokemons([]);
-				setPokemons((prev) => [...prev, ...detailedPokemons]);
+				setPokemons(detailedPokemons);
 				setInitialLoad(true); // Mark that initial data has loaded.
 			})
 			.catch((err) => console.error(err));
@@ -122,7 +121,7 @@ function App() {
 				""
 			)}
 			{/* Render InfiniteScroll only after the initial load */}
-			{!initialLoad || showingPokedex ? (
+			{!initialLoad || showingPokedex || searched ? (
 				<PokemonList
 					pokemons={pokemons}
 					addToPokedex={addToPokedex}
