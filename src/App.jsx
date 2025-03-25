@@ -4,6 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import PokemonList from "./components/PokemonList";
 import SearchBar from "./components/SearchBar";
 import Banner from "../src/assets/poke-banner.jpg";
+import PokemonDetails from "./components/PokemonDetails";
 
 function App() {
 	const [pokemons, setPokemons] = useState([]);
@@ -12,9 +13,18 @@ function App() {
 	);
 	const [initialLoad, setInitialLoad] = useState(false);
 	const [searchTerm, setSearchTerm] = useState("");
-	const [searched, setSearched] = useState(false);
+	const [selectedPokemon, setSelectedPokemon] = useState(null);
 	const [pokedex, setPokedex] = useState([]);
 	const [showingPokedex, setShowingPokedex] = useState(false);
+
+	const handlePokemonSelect = (pokemon) => {
+		setSelectedPokemon(pokemon);
+		console.log(pokemon);
+	};
+
+	const handleGoBack = () => {
+		setSelectedPokemon(null);
+	};
 
 	const addToPokedex = (pokemon) => {
 		setPokedex((prevPokedex) => [...prevPokedex, pokemon]);
@@ -34,14 +44,12 @@ function App() {
 			.then((response) => {
 				const result = response.data;
 				setPokemons([result]);
-				setSearched(true);
 				setShowingPokedex(false);
 			})
 			.catch((err) => console.error(err));
 	};
 
 	const fetchPokes = () => {
-		setSearched(false);
 		setSearchTerm("");
 		setShowingPokedex(false);
 		axios
@@ -95,7 +103,6 @@ function App() {
 					Pokedex
 				</h1>
 			</div>
-
 			<div
 				className="w-full h-96 bg-center bg-cover"
 				style={{ backgroundImage: `url(${Banner})` }}
@@ -115,18 +122,7 @@ function App() {
 				setSearchTerm={setSearchTerm}
 				handleSearch={handleSearch}
 			></SearchBar>
-			{searched || showingPokedex ? (
-				<button onClick={fetchPokes}>Go Back</button>
-			) : (
-				""
-			)}
-			{/* Render InfiniteScroll only after the initial load */}
-			{!initialLoad || showingPokedex || searched ? (
-				<PokemonList
-					pokemons={pokemons}
-					addToPokedex={addToPokedex}
-				></PokemonList>
-			) : (
+			{!selectedPokemon ? (
 				<InfiniteScroll
 					dataLength={pokemons.length}
 					next={loadMorePokemon}
@@ -136,9 +132,17 @@ function App() {
 				>
 					<PokemonList
 						pokemons={pokemons}
-						addToPokedex={addToPokedex}
-					></PokemonList>
+						onPokemonSelect={handlePokemonSelect}
+					/>
 				</InfiniteScroll>
+			) : (
+				<div>
+					<button onClick={handleGoBack}>Go Back</button>
+					<PokemonDetails
+						pokemon={selectedPokemon}
+						addToPokedex={addToPokedex}
+					/>
+				</div>
 			)}
 		</div>
 	);

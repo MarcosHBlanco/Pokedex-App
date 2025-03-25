@@ -1,4 +1,4 @@
-export default function PokemonList({ pokemons, addToPokedex }) {
+export default function PokemonList({ pokemons, onPokemonSelect }) {
 	return (
 		<div>
 			{pokemons.map((pokemon) => (
@@ -9,6 +9,7 @@ export default function PokemonList({ pokemons, addToPokedex }) {
 						margin: "10px",
 						padding: "10px",
 					}}
+					onClick={() => onPokemonSelect(pokemon)}
 				>
 					<h2>
 						<strong>
@@ -37,18 +38,6 @@ export default function PokemonList({ pokemons, addToPokedex }) {
 							{" | "}
 						</p>
 					</div>
-					<p>
-						<strong>Moves:</strong>{" "}
-						{pokemon.moves.slice(0, 15).map((move, index) => (
-							<button
-								key={index}
-								className="border-2 border-blue-400 rounded m-1 p-1 hover:bg-blue-400 hover:text-white active:scale-90 transition"
-							>
-								{move.move.name}
-							</button>
-						))}
-					</p>
-					<button onClick={() => addToPokedex(pokemon)}>Add to Pokedex</button>
 				</div>
 			))}
 		</div>
