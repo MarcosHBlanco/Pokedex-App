@@ -1,7 +1,4 @@
 export default function PokemonDetails({ pokemon, addToPokedex }) {
-	if (!pokemon) {
-		return <div>Select a Pokemon to view Details</div>;
-	}
 	return (
 		<div>
 			<div
