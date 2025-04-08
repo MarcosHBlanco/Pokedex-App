@@ -109,7 +109,7 @@ function App() {
 			></div>
 			{!showingPokedex ? (
 				<button
-					className="m-3 px-2 border-2 border-amber-400 rounded text-2xl hover:bg-amber-300 hover:text-slate-800 active:scale-90 transition"
+					className="m-3 px-2 border-2 border-emerald-600 rounded text-2xl hover:bg-emerald-600 hover:text-white active:scale-90 transition"
 					onClick={showPokedexPokemon}
 				>
 					Team

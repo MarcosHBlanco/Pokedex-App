@@ -1,4 +1,13 @@
+import { useState } from "react";
+import PokemonMoves from "./PokemonMoves";
+
 export default function PokemonDetails({ pokemon, addToPokedex }) {
+	const [pokeMoves, setPokeMoves] = useState([]);
+
+	const handleMoves = (move) => {
+		setPokeMoves((prevPokeMoves) => [...prevPokeMoves, move]);
+		console.log(pokeMoves);
+	};
 	return (
 		<div>
 			<div
@@ -41,13 +50,21 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 					{pokemon.moves.slice(0, 15).map((move, index) => (
 						<button
 							key={index}
+							onClick={() => handleMoves(move)}
 							className="border-2 border-blue-400 rounded m-1 p-1 hover:bg-blue-400 hover:text-white active:scale-90 transition"
 						>
 							{move.move.name}
 						</button>
 					))}
 				</p>
-				<button onClick={() => addToPokedex(pokemon)}>Add to Pokedex</button>
+				{pokeMoves && <PokemonMoves pokemonMoves={pokeMoves}></PokemonMoves>}
+
+				<button
+					className="m-3 px-2 border-2 border-emerald-600 rounded text-2xl hover:bg-emerald-600 hover:text-white active:scale-90 transition"
+					onClick={() => addToPokedex(pokemon)}
+				>
+					Add to Pokedex
+				</button>
 			</div>
 		</div>
 	);
