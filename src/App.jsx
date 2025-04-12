@@ -137,7 +137,12 @@ function App() {
 				</InfiniteScroll>
 			) : (
 				<div>
-					<button onClick={handleGoBack}>Go Back</button>
+					<button
+						onClick={handleGoBack}
+						className="border rounded border-sky-600 hover:bg-sky-600 hover:text-white transition "
+					>
+						Go Back
+					</button>
 					<PokemonDetails
 						pokemon={selectedPokemon}
 						addToPokedex={addToPokedex}

@@ -5,8 +5,9 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 	const [pokeMoves, setPokeMoves] = useState([]);
 
 	const handleMoves = (move) => {
-		setPokeMoves((prevPokeMoves) => [...prevPokeMoves, move]);
-		console.log(pokeMoves);
+		if (pokeMoves.length <= 3) {
+			setPokeMoves((prevPokeMoves) => [...prevPokeMoves, move]);
+		}
 	};
 	return (
 		<div>
@@ -42,6 +43,16 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 					<p>
 						<strong>Hp:</strong>{" "}
 						{pokemon.stats.find((s) => s.stat.name === "hp").base_stat}
+						{" | "}
+					</p>
+					<p>
+						<strong>Attack:</strong>{" "}
+						{pokemon.stats.find((s) => s.stat.name === "attack").base_stat}
+						{" | "}
+					</p>
+					<p>
+						<strong>Defense:</strong>{" "}
+						{pokemon.stats.find((s) => s.stat.name === "defense").base_stat}
 						{" | "}
 					</p>
 				</div>
