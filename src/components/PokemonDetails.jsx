@@ -1,12 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PokemonMoves from "./PokemonMoves";
+import axios from "axios";
 
 export default function PokemonDetails({ pokemon, addToPokedex }) {
-	const [pokeMoves, setPokeMoves] = useState([]);
+	const [allMoves, setAllMoves] = useState([]); // detailed data for every move
+	const [selectedMoves, setSelected] = useState([]); // user‑picked subset
 
-	const handleMoves = (move) => {
-		if (pokeMoves.length <= 3) {
-			setPokeMoves((prevPokeMoves) => [...prevPokeMoves, move]);
+	// 1. fetch details for every move once pokemon arrives
+	useEffect(() => {
+		if (!pokemon?.moves) return;
+
+		async function loadAllMoves() {
+			try {
+				const detailed = await Promise.all(
+					pokemon.moves.map(async ({ move }) => {
+						const { data } = await axios.get(move.url);
+						return {
+							name: move.name,
+							power: data.power,
+							accuracy: data.accuracy,
+							pp: data.pp,
+						};
+					})
+				);
+				setAllMoves(detailed);
+			} catch (err) {
+				console.error("Couldn’t load move details", err);
+			}
+		}
+
+		loadAllMoves();
+	}, [pokemon.moves]);
+
+	// 2. handler to pick a move into your selectedMoves
+	const handlePick = (move) => {
+		// no duplicates, max 4
+		if (
+			selectedMoves.length < 4 &&
+			!selectedMoves.some((m) => m.name === move.name)
+		) {
+			setSelected((prev) => [...prev, move]);
 		}
 	};
 	return (
@@ -56,19 +89,38 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 						{" | "}
 					</p>
 				</div>
-				<p>
-					<strong>Moves:</strong>{" "}
-					{pokemon.moves.slice(0, 15).map((move, index) => (
-						<button
-							key={index}
-							onClick={() => handleMoves(move)}
-							className="border-2 border-blue-400 rounded m-1 p-1 hover:bg-blue-400 hover:text-white active:scale-90 transition"
-						>
-							{move.move.name}
-						</button>
-					))}
-				</p>
-				{pokeMoves && <PokemonMoves pokemonMoves={pokeMoves}></PokemonMoves>}
+				<section>
+					<h3>All Moves (click to pick):</h3>
+					{allMoves.length === 0 ? (
+						<p>Loading moves…</p>
+					) : (
+						<div className="flex flex-wrap">
+							{allMoves.map((m, i) => (
+								<button
+									key={i}
+									onClick={() => handlePick(m)}
+									className="m-1 p-2 border-2 border-blue-400 rounded hover:bg-blue-400 hover:text-white"
+								>
+									<strong>{m.name}</strong>
+									<br />
+									Power: {m.power ?? "N/A"}
+									<br />
+									Accuracy: {m.accuracy ?? "N/A"}
+									<br />
+									PP: {m.pp ?? "N/A"}
+								</button>
+							))}
+						</div>
+					)}
+				</section>
+				<section>
+					<h3>Your selected moves:</h3>
+					{selectedMoves.length === 0 ? (
+						<p>No moves selected yet</p>
+					) : (
+						<PokemonMoves pokemonMoves={selectedMoves} />
+					)}
+				</section>
 
 				<button
 					className="m-3 px-2 border-2 border-emerald-600 rounded text-2xl hover:bg-emerald-600 hover:text-white active:scale-90 transition"
