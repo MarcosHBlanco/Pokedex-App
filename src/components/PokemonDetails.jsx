@@ -90,30 +90,6 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 					</p>
 				</div>
 				<section>
-					<h3>All Moves (click to pick):</h3>
-					{allMoves.length === 0 ? (
-						<p>Loading moves…</p>
-					) : (
-						<div className="flex flex-wrap">
-							{allMoves.map((m, i) => (
-								<button
-									key={i}
-									onClick={() => handlePick(m)}
-									className="m-1 p-2 border-2 border-blue-400 rounded hover:bg-blue-400 hover:text-white"
-								>
-									<strong>{m.name}</strong>
-									<br />
-									Power: {m.power ?? "N/A"}
-									<br />
-									Accuracy: {m.accuracy ?? "N/A"}
-									<br />
-									PP: {m.pp ?? "N/A"}
-								</button>
-							))}
-						</div>
-					)}
-				</section>
-				<section>
 					<h3>Your selected moves:</h3>
 					{selectedMoves.length === 0 ? (
 						<p>No moves selected yet</p>
@@ -121,7 +97,31 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 						<PokemonMoves pokemonMoves={selectedMoves} />
 					)}
 				</section>
-
+				<section>
+					<h3>All Moves (click to pick):</h3>
+					{allMoves.length === 0 ? (
+						<p>Loading moves…</p>
+					) : (
+						<div className="flex flex-col">
+							{allMoves.map((m, i) => (
+								<button
+									key={i}
+									onClick={() => handlePick(m)}
+									className="m-1 flex p-2 border-2 border-blue-400 rounded hover:bg-blue-400 hover:text-white"
+								>
+									<strong className="m-1">
+										{m.name.charAt(0).toUpperCase() + m.name.slice(1)}
+									</strong>
+									<ul className="flex">
+										<li className="m-1">Power: {m.power ?? "N/A"}</li>
+										<li className="m-1">Accuracy: {m.accuracy ?? "N/A"}</li>
+										<li className="m-1">PP: {m.pp ?? "N/A"}</li>
+									</ul>
+								</button>
+							))}
+						</div>
+					)}
+				</section>
 				<button
 					className="m-3 px-2 border-2 border-emerald-600 rounded text-2xl hover:bg-emerald-600 hover:text-white active:scale-90 transition"
 					onClick={() => addToPokedex(pokemon)}
