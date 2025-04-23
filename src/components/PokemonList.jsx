@@ -6,9 +6,10 @@ export default function PokemonList({ pokemons, onPokemonSelect }) {
 					key={pokemon.id}
 					style={{
 						border: "1px solid #ccc",
-						margin: "10px",
-						padding: "10px",
+						margin: "6px",
+						padding: "6px",
 					}}
+					className="hover:cursor-pointer"
 					onClick={() => onPokemonSelect(pokemon)}
 				>
 					<h2>

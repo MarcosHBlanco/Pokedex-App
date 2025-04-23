@@ -10,7 +10,10 @@ export default function SearchBar({ searchTerm, setSearchTerm, handleSearch }) {
 					setSearchTerm(e.target.value), console.log(searchTerm);
 				}}
 			/>
-			<button className="" onClick={handleSearch}>
+			<button
+				className=" p-1 border rounded border-slate-700 hover:bg-slate-500 hover:text-white hover:cursor-pointer"
+				onClick={handleSearch}
+			>
 				Search
 			</button>
 		</div>

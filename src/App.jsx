@@ -24,18 +24,25 @@ function App() {
 
 	const handleGoBack = () => {
 		setSelectedPokemon(null);
+		setShowingPokedex(false);
+		setSearchTerm("");
+		fetchPokes();
 	};
 
-	const addToPokedex = (pokemon) => {
-		setPokedex((prevPokedex) => [...prevPokedex, pokemon]);
+	const addToPokedex = (pokemonWithMoves) => {
+		setPokedex((prevPokedex) => [...prevPokedex, pokemonWithMoves]);
 		console.log(pokedex);
 	};
+	useEffect(() => {
+		console.log("pokedex updated", pokedex);
+	}, [pokedex]);
 
 	const showPokedexPokemon = () => {
 		console.log(pokemons);
 		setShowingPokedex(true);
-		setPokemons([]);
-		setPokemons((prevPokemon) => [...prevPokemon, ...pokedex]);
+		setSelectedPokemon(null);
+		setPokemons(pokedex);
+		setNextURL(null);
 	};
 
 	const handleSearch = () => {
@@ -44,6 +51,7 @@ function App() {
 			.then((response) => {
 				const result = response.data;
 				setPokemons([result]);
+				setSelectedPokemon(result);
 				setShowingPokedex(false);
 			})
 			.catch((err) => console.error(err));
@@ -109,7 +117,7 @@ function App() {
 			></div>
 			{!showingPokedex ? (
 				<button
-					className="m-3 px-2 border-2 border-emerald-600 rounded text-2xl hover:bg-emerald-600 hover:text-white active:scale-90 transition"
+					className="m-3 px-2 border-2 border-emerald-600 rounded text-2xl hover:bg-emerald-600 hover:text-white active:scale-90 transition hover:cursor-pointer"
 					onClick={showPokedexPokemon}
 				>
 					Team
@@ -122,6 +130,12 @@ function App() {
 				setSearchTerm={setSearchTerm}
 				handleSearch={handleSearch}
 			></SearchBar>
+			<button
+				onClick={handleGoBack}
+				className="border rounded border-sky-600 hover:bg-sky-600 hover:text-white transition hover:cursor-pointer"
+			>
+				Go Back
+			</button>
 			{!selectedPokemon ? (
 				<InfiniteScroll
 					dataLength={pokemons.length}
@@ -137,12 +151,6 @@ function App() {
 				</InfiniteScroll>
 			) : (
 				<div>
-					<button
-						onClick={handleGoBack}
-						className="border rounded border-sky-600 hover:bg-sky-600 hover:text-white transition "
-					>
-						Go Back
-					</button>
 					<PokemonDetails
 						pokemon={selectedPokemon}
 						addToPokedex={addToPokedex}

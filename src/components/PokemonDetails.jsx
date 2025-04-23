@@ -107,7 +107,7 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 								<button
 									key={i}
 									onClick={() => handlePick(m)}
-									className="m-1 flex p-2 border-2 border-blue-400 rounded hover:bg-blue-400 hover:text-white"
+									className="m-1 flex p-2 border-2 border-blue-400 rounded hover:bg-blue-400 hover:text-white hover:cursor-pointer"
 								>
 									<strong className="m-1">
 										{m.name.charAt(0).toUpperCase() + m.name.slice(1)}
@@ -124,7 +124,7 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 				</section>
 				<button
 					className="m-3 px-2 border-2 border-emerald-600 rounded text-2xl hover:bg-emerald-600 hover:text-white active:scale-90 transition"
-					onClick={() => addToPokedex(pokemon)}
+					onClick={() => addToPokedex({ ...pokemon, moves: selectedMoves })}
 				>
 					Add to Pokedex
 				</button>
