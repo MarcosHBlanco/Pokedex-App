@@ -1,15 +1,17 @@
 export default function PokemonMoves({ pokemonMoves }) {
 	return (
-		<ul>
+		<div>
 			{pokemonMoves.map((pokeMove, index) => (
-				<li
+				<ul
 					key={index}
-					className="m-1 border border-blue-400 bg-blue-300 rounded text-white w-30 flex justify-center"
+					className="m-1 border border-blue-400 bg-blue-300 rounded text-white w-fit flex"
 				>
-					{pokeMove.name} - Power: {pokeMove.power ?? "N/A"} - Accuracy:{" "}
-					{pokeMove.accuracy ?? "N/A"} - PP: {pokeMove.pp ?? "N/A"}
-				</li>
+					<li>{pokeMove.name}</li>
+					<li>- Power: {pokeMove.power ?? "N/A"} </li>
+					<li>- Accuracy: {pokeMove.accuracy ?? "N/A"} </li>
+					<li>- PP: {pokeMove.pp ?? "N/A"} </li>
+				</ul>
 			))}
-		</ul>
+		</div>
 	);
 }
