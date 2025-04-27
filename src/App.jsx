@@ -34,6 +34,20 @@ function App() {
 		console.log(pokedex);
 	};
 
+	// Serialize and prompt download
+	const downloadPokedex = () => {
+		const data = JSON.stringify(pokedex, null, 2);
+		const blob = new Blob([data], { type: "text/plain" });
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement("a");
+		link.href = url;
+		link.download = "pokedex.txt";
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+		URL.revokeObjectURL(url);
+	};
+
 	const showPokedexPokemon = () => {
 		console.log(pokemons);
 		setShowingPokedex(true);
@@ -137,6 +151,14 @@ function App() {
 				>
 					Go Back
 				</button>
+				{pokedex.length > 0 && (
+					<button
+						onClick={downloadPokedex}
+						className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 active:scale-95"
+					>
+						Download Team
+					</button>
+				)}
 			</div>
 
 			{/* Content */}
