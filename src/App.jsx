@@ -33,9 +33,6 @@ function App() {
 		setPokedex((prevPokedex) => [...prevPokedex, pokemonWithMoves]);
 		console.log(pokedex);
 	};
-	useEffect(() => {
-		console.log("pokedex updated", pokedex);
-	}, [pokedex]);
 
 	const showPokedexPokemon = () => {
 		console.log(pokemons);
@@ -105,58 +102,67 @@ function App() {
 	}, []);
 
 	return (
-		<div className="App bg-amber-50">
-			<div className="w-full h-40 flex justify-around">
-				<h1 className="boldonse-regular text-8xl p-10 bg-gradient-to-r from-cyan-300 to-amber-600 bg-clip-text text-transparent">
+		<div className="min-h-screen bg-gray-100">
+			{/* Header */}
+			<header className="text-center py-8 bg-gradient-to-r from-indigo-400 to-purple-400">
+				<h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-white">
 					Pokedex
 				</h1>
-			</div>
+			</header>
+
+			{/* Banner */}
 			<div
-				className="w-full h-96 bg-center bg-cover"
+				className="w-full h-64 bg-center bg-cover"
 				style={{ backgroundImage: `url(${Banner})` }}
-			></div>
-			{!showingPokedex ? (
+			/>
+
+			{/* Controls */}
+			<div className="flex flex-col sm:flex-row justify-center items-center gap-4 my-6 px-4">
+				{!showingPokedex && (
+					<button
+						onClick={showPokedexPokemon}
+						className="px-4 py-2 bg-indigo-500 text-white rounded-lg shadow hover:bg-indigo-600 active:scale-95"
+					>
+						View Team
+					</button>
+				)}
+				<SearchBar
+					searchTerm={searchTerm}
+					setSearchTerm={setSearchTerm}
+					handleSearch={handleSearch}
+				/>
 				<button
-					className="m-3 px-2 border-2 border-emerald-600 rounded text-2xl hover:bg-emerald-600 hover:text-white active:scale-90 transition hover:cursor-pointer"
-					onClick={showPokedexPokemon}
+					onClick={handleGoBack}
+					className="px-4 py-2 border border-indigo-500 text-indigo-500 rounded-lg shadow hover:bg-indigo-500 hover:text-white active:scale-95"
 				>
-					Team
+					Go Back
 				</button>
-			) : (
-				""
-			)}
-			<SearchBar
-				searchTerm={searchTerm}
-				setSearchTerm={setSearchTerm}
-				handleSearch={handleSearch}
-			></SearchBar>
-			<button
-				onClick={handleGoBack}
-				className="border rounded border-sky-600 hover:bg-sky-600 hover:text-white transition hover:cursor-pointer"
-			>
-				Go Back
-			</button>
-			{!selectedPokemon ? (
-				<InfiniteScroll
-					dataLength={pokemons.length}
-					next={loadMorePokemon}
-					hasMore={Boolean(nextURL)}
-					loader={""}
-					endMessage={<p>No more Pokémon</p>}
-				>
-					<PokemonList
-						pokemons={pokemons}
-						onPokemonSelect={handlePokemonSelect}
-					/>
-				</InfiniteScroll>
-			) : (
-				<div>
+			</div>
+
+			{/* Content */}
+			<main className="px-4">
+				{!selectedPokemon ? (
+					<InfiniteScroll
+						dataLength={pokemons.length}
+						next={loadMorePokemon}
+						hasMore={Boolean(nextURL)}
+						loader={<p className="text-center text-indigo-500">Loading...</p>}
+						endMessage={
+							<p className="text-center text-indigo-500">No more Pokémon</p>
+						}
+					>
+						<PokemonList
+							pokemons={pokemons}
+							onPokemonSelect={handlePokemonSelect}
+						/>
+					</InfiniteScroll>
+				) : (
 					<PokemonDetails
 						pokemon={selectedPokemon}
 						addToPokedex={addToPokedex}
 					/>
-				</div>
-			)}
+				)}
+			</main>
 		</div>
 	);
 }

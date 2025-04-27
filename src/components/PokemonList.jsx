@@ -1,42 +1,29 @@
+import React from "react";
+
 export default function PokemonList({ pokemons, onPokemonSelect }) {
 	return (
-		<div>
+		<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 			{pokemons.map((pokemon) => (
 				<div
 					key={pokemon.id}
-					style={{
-						border: "1px solid #ccc",
-						margin: "6px",
-						padding: "6px",
-					}}
-					className="hover:cursor-pointer"
 					onClick={() => onPokemonSelect(pokemon)}
+					className="bg-white rounded-xl shadow p-4 hover:shadow-lg transform hover:-translate-y-1 cursor-pointer"
 				>
-					<h2>
-						<strong>
-							{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-						</strong>
+					<h2 className="text-xl font-semibold mb-2 capitalize text-gray-900">
+						{pokemon.name}
 					</h2>
-					<div className="flex place-items-center">
-						<div className="w-20 ">
-							<img src={pokemon.sprites.front_default} alt={pokemon.name} />
-						</div>
-						<p>
-							<strong>Height:</strong> {pokemon.height}
-							{" | "}
-						</p>
-						<p>
-							<strong>Weight:</strong> {pokemon.weight}
-							{" | "}
-						</p>
+					<img
+						src={pokemon.sprites.front_default}
+						alt={pokemon.name}
+						className="w-24 h-24 mx-auto mb-4"
+					/>
+					<div className="text-sm space-y-1 text-gray-700">
 						<p>
 							<strong>Type:</strong> {pokemon.types[0].type.name}
-							{" | "}
 						</p>
 						<p>
-							<strong>Hp:</strong>{" "}
+							<strong>HP:</strong>{" "}
 							{pokemon.stats.find((s) => s.stat.name === "hp").base_stat}
-							{" | "}
 						</p>
 					</div>
 				</div>

@@ -1,16 +1,18 @@
+import React from "react";
+
 export default function PokemonMoves({ pokemonMoves }) {
 	return (
-		<div>
+		<div className="flex flex-wrap gap-3">
 			{pokemonMoves.map((pokeMove, index) => (
-				<ul
+				<div
 					key={index}
-					className="m-1 border border-blue-400 bg-blue-300 rounded text-white w-fit flex"
+					className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex flex-col space-y-1 text-blue-900 shadow-sm"
 				>
-					<li>{pokeMove.name}</li>
-					<li>- Power: {pokeMove.power ?? "N/A"} </li>
-					<li>- Accuracy: {pokeMove.accuracy ?? "N/A"} </li>
-					<li>- PP: {pokeMove.pp ?? "N/A"} </li>
-				</ul>
+					<h4 className="text-lg font-semibold capitalize">{pokeMove.name}</h4>
+					<p className="text-sm">Power: {pokeMove.power ?? "N/A"}</p>
+					<p className="text-sm">Accuracy: {pokeMove.accuracy ?? "N/A"}</p>
+					<p className="text-sm">PP: {pokeMove.pp ?? "N/A"}</p>
+				</div>
 			))}
 		</div>
 	);
