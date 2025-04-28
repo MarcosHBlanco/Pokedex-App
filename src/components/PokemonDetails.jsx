@@ -16,6 +16,7 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 					power: r.data.power,
 					accuracy: r.data.accuracy,
 					pp: r.data.pp,
+					type: r.data.type,
 				}))
 			)
 			.then(setAllMoves)
@@ -103,6 +104,7 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 							<p className="text-gray-700">Power: {m.power ?? "—"}</p>
 							<p className="text-gray-700">Acc: {m.accuracy ?? "—"}</p>
 							<p className="text-gray-700">PP: {m.pp ?? "—"}</p>
+							<p className="text-gray-700">Type: {m.type.name ?? "—"}</p>
 						</button>
 					))}
 				</div>

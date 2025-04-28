@@ -12,6 +12,7 @@ export default function PokemonMoves({ pokemonMoves }) {
 					<p className="text-sm">Power: {pokeMove.power ?? "N/A"}</p>
 					<p className="text-sm">Accuracy: {pokeMove.accuracy ?? "N/A"}</p>
 					<p className="text-sm">PP: {pokeMove.pp ?? "N/A"}</p>
+					<p className="text-sm">Type: {pokeMove.type.name ?? "N/A"}</p>
 				</div>
 			))}
 		</div>
