@@ -58,6 +58,24 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 						<strong>Defense:</strong>{" "}
 						{pokemon.stats.find((s) => s.stat.name === "defense").base_stat}
 					</p>
+					<p>
+						<strong>Speed:</strong>{" "}
+						{pokemon.stats.find((s) => s.stat.name === "speed").base_stat}
+					</p>
+					<p>
+						<strong>Sp. Attack:</strong>{" "}
+						{
+							pokemon.stats.find((s) => s.stat.name === "special-attack")
+								.base_stat
+						}
+					</p>
+					<p>
+						<strong>Sp. Defense:</strong>{" "}
+						{
+							pokemon.stats.find((s) => s.stat.name === "special-defense")
+								.base_stat
+						}
+					</p>
 				</div>
 			</div>
 
@@ -81,7 +99,7 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 							onClick={() => handlePick(m)}
 							className="bg-gray-100 rounded-lg p-2 text-xs hover:bg-gray-200 transition"
 						>
-							<p className="font-medium capitalize text-gray-900">{m.name}</p>
+							<p className=" font-bold capitalize text-gray-900">{m.name}</p>
 							<p className="text-gray-700">Power: {m.power ?? "—"}</p>
 							<p className="text-gray-700">Acc: {m.accuracy ?? "—"}</p>
 							<p className="text-gray-700">PP: {m.pp ?? "—"}</p>
