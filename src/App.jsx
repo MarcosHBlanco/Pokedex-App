@@ -5,6 +5,7 @@ import PokemonList from "./components/PokemonList";
 import SearchBar from "./components/SearchBar";
 import Banner from "../src/assets/poke-banner.jpg";
 import PokemonDetails from "./components/PokemonDetails";
+import BUTTON_TYPES from "../src/assets/ButtonTypes.js";
 
 function App() {
 	const [pokemons, setPokemons] = useState([]);
@@ -160,7 +161,19 @@ function App() {
 					</button>
 				)}
 			</div>
-
+			<div className="flex justify-center">
+				<div className="m-5 grid grid-cols-5 grid-rows-4 gap-2 w-1/2 ">
+					{Object.entries(BUTTON_TYPES).map(([key, value]) => (
+						<button
+							key={key}
+							style={{ backgroundColor: value, color: "white", margin: 4 }}
+							className="border rounded "
+						>
+							{key}
+						</button>
+					))}
+				</div>
+			</div>
 			{/* Content */}
 			<main className="px-4">
 				{!selectedPokemon ? (
