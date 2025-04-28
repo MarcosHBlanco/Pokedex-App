@@ -57,6 +57,25 @@ function App() {
 		setNextURL(null);
 	};
 
+	const handleSearchByType = async (key) => {
+		try {
+			setSearchTerm("");
+			setShowingPokedex(false);
+			const { data } = await axios.get(
+				`https://pokeapi.co/api/v2/type/${key.toLowerCase()}`
+			);
+			const pokemons = data.pokemon;
+			const detailed = await Promise.all(
+				pokemons.map(({ pokemon }) =>
+					axios.get(pokemon.url).then((res) => res.data)
+				)
+			);
+			setPokemons(detailed);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
 	const handleSearch = () => {
 		axios
 			.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`)
@@ -168,6 +187,7 @@ function App() {
 							key={key}
 							style={{ backgroundColor: value, color: "white", margin: 4 }}
 							className="border rounded "
+							onClick={() => handleSearchByType(key)}
 						>
 							{key}
 						</button>

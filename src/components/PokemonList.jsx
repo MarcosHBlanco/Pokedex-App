@@ -19,8 +19,14 @@ export default function PokemonList({ pokemons, onPokemonSelect }) {
 					/>
 					<div className="text-sm space-y-1 text-gray-700">
 						<p>
-							<strong>Type:</strong> {pokemon.types[0].type.name}
+							<strong>Type:</strong>{" "}
+							{pokemon.types.map(({ slot, type }) => (
+								<span key={slot} style={{ marginRight: 8 }}>
+									{type.name}
+								</span>
+							))}
 						</p>
+
 						<p>
 							<strong>HP:</strong>{" "}
 							{pokemon.stats.find((s) => s.stat.name === "hp").base_stat}
