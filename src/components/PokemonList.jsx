@@ -1,4 +1,5 @@
 import React from "react";
+import TypeBadge from "./TypeBadge";
 
 export default function PokemonList({ pokemons, onPokemonSelect }) {
 	return (
@@ -21,9 +22,7 @@ export default function PokemonList({ pokemons, onPokemonSelect }) {
 						<p>
 							<strong>Type:</strong>{" "}
 							{pokemon.types.map(({ slot, type }) => (
-								<span key={slot} style={{ marginRight: 8 }}>
-									{type.name}
-								</span>
+								<TypeBadge key={slot} typeName={type.name} />
 							))}
 						</p>
 

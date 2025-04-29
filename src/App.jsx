@@ -71,6 +71,7 @@ function App() {
 				)
 			);
 			setPokemons(detailed);
+			setNextURL(null);
 		} catch (err) {
 			console.error(err);
 		}
