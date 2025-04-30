@@ -17,11 +17,13 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 					accuracy: r.data.accuracy,
 					pp: r.data.pp,
 					type: r.data.type,
+					damage_class: r.data.damage_class,
 				}))
 			)
 			.then(setAllMoves)
 			.catch(console.error);
-	}, [pokemon]);
+		console.log(allMoves);
+	}, [pokemon, allMoves]);
 
 	const handlePick = (move) => {
 		if (
@@ -104,7 +106,10 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 							<p className="text-gray-700">Power: {m.power ?? "—"}</p>
 							<p className="text-gray-700">Acc: {m.accuracy ?? "—"}</p>
 							<p className="text-gray-700">PP: {m.pp ?? "—"}</p>
-							<p className="text-gray-700">Type: {m.type.name ?? "—"}</p>
+							<p className="text-gray-700">Attack Type: {m.type.name ?? "—"}</p>
+							<p className="text-gray-700">
+								Damage Type: {m.damage_class.name}
+							</p>
 						</button>
 					))}
 				</div>
