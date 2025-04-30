@@ -27,8 +27,7 @@ export default function PokemonList({ pokemons, onPokemonSelect }) {
 						</p>
 
 						<p>
-							<strong>HP:</strong>{" "}
-							{pokemon.stats.find((s) => s.stat.name === "hp").base_stat}
+							<strong>National #:</strong> {pokemon.id}
 						</p>
 					</div>
 				</div>

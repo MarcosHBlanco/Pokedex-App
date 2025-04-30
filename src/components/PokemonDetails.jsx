@@ -57,10 +57,12 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 				<h2 className="text-3xl font-bold mb-2 capitalize">{pokemon.name}</h2>
 				<div className="flex flex-wrap justify-center gap-4 text-sm text-gray-700 items-center">
 					<p>
-						<strong>Height:</strong> {pokemon.height}
+						<strong>Height:</strong> {(pokemon.height / 10).toFixed(1)}
+						{"m"}
 					</p>
 					<p>
-						<strong>Weight:</strong> {pokemon.weight}
+						<strong>Weight:</strong> {(pokemon.weight / 10).toFixed(1)}
+						{"kg"}
 					</p>
 					<p>
 						<strong>Type:</strong>{" "}
