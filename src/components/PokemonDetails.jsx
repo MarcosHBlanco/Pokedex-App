@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PokemonMoves from "./PokemonMoves";
+import TypeBadge from "./TypeBadge";
+import SearchBar from "./SearchBar";
 
 export default function PokemonDetails({ pokemon, addToPokedex }) {
 	const [allMoves, setAllMoves] = useState([]);
 	const [selectedMoves, setSelectedMoves] = useState([]);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [displayedMoves, setDisplayedMoves] = useState([]);
 
 	useEffect(() => {
 		if (!pokemon?.moves) return;
@@ -22,8 +26,16 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 			)
 			.then(setAllMoves)
 			.catch(console.error);
-		console.log(allMoves);
-	}, [pokemon, allMoves]);
+	}, [pokemon]);
+
+	useEffect(() => {
+		const term = searchTerm.toLowerCase().trim();
+		setDisplayedMoves(
+			allMoves.filter((m) => m.name.toLowerCase().includes(term))
+		);
+	}, [allMoves, searchTerm]);
+
+	const handleMoveSearch = () => {};
 
 	const handlePick = (move) => {
 		if (
@@ -43,7 +55,7 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 					className="w-32 h-32 mb-4"
 				/>
 				<h2 className="text-3xl font-bold mb-2 capitalize">{pokemon.name}</h2>
-				<div className="flex flex-wrap justify-center gap-4 text-sm text-gray-700">
+				<div className="flex flex-wrap justify-center gap-4 text-sm text-gray-700 items-center">
 					<p>
 						<strong>Height:</strong> {pokemon.height}
 					</p>
@@ -51,7 +63,10 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 						<strong>Weight:</strong> {pokemon.weight}
 					</p>
 					<p>
-						<strong>Type:</strong> {pokemon.types[0].type.name}
+						<strong>Type:</strong>{" "}
+						{pokemon.types.map(({ slot, type }) => (
+							<TypeBadge key={slot} typeName={type.name} />
+						))}
 					</p>
 					<p>
 						<strong>Attack:</strong>{" "}
@@ -93,10 +108,18 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 				)}
 			</section>
 
+			<section className="mt-5">
+				<SearchBar
+					searchTerm={searchTerm}
+					setSearchTerm={setSearchTerm}
+					handleSearch={handleMoveSearch}
+					placeHolder={"Search Moves..."}
+				/>
+			</section>
 			<section className="mt-6">
 				<h3 className="text-xl font-semibold mb-2 text-gray-800">All Moves</h3>
 				<div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-64 overflow-y-auto">
-					{allMoves.map((m, i) => (
+					{displayedMoves.map((m, i) => (
 						<button
 							key={i}
 							onClick={() => handlePick(m)}
@@ -106,7 +129,10 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 							<p className="text-gray-700">Power: {m.power ?? "—"}</p>
 							<p className="text-gray-700">Acc: {m.accuracy ?? "—"}</p>
 							<p className="text-gray-700">PP: {m.pp ?? "—"}</p>
-							<p className="text-gray-700">Attack Type: {m.type.name ?? "—"}</p>
+							<p className="text-gray-700">
+								Attack Type:{" "}
+								{m.type.name ? <TypeBadge typeName={m.type.name} /> : "—"}
+							</p>
 							<p className="text-gray-700">
 								Damage Type: {m.damage_class.name}
 							</p>

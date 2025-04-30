@@ -165,6 +165,7 @@ function App() {
 					searchTerm={searchTerm}
 					setSearchTerm={setSearchTerm}
 					handleSearch={handleSearch}
+					placeHolder={"Search Pokemon..."}
 				/>
 				<button
 					onClick={handleGoBack}
