@@ -3,6 +3,9 @@ import axios from "axios";
 import PokemonMoves from "./PokemonMoves";
 import TypeBadge from "./TypeBadge";
 import SearchBar from "./SearchBar";
+import moveStatusImg from "../assets/move-status.png";
+import movePhysicalImg from "../assets/move-physical.png";
+import moveSpecialImg from "../assets/move-special.png";
 
 export default function PokemonDetails({ pokemon, addToPokedex }) {
 	const [allMoves, setAllMoves] = useState([]);
@@ -135,8 +138,17 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 								Attack Type:{" "}
 								{m.type.name ? <TypeBadge typeName={m.type.name} /> : "—"}
 							</p>
-							<p className="text-gray-700">
-								Damage Type: {m.damage_class.name}
+							<p className="text-gray-700 flex justify-center">
+								Damage Type:{" "}
+								{m.damage_class.name === "status" ? (
+									<img className="w-6 mx-2" src={moveStatusImg} />
+								) : m.damage_class.name === "physical" ? (
+									<img className="w-6 mx-2" src={movePhysicalImg} />
+								) : m.damage_class.name === "special" ? (
+									<img className="w-6 mx-2" src={moveSpecialImg} />
+								) : (
+									""
+								)}
 							</p>
 						</button>
 					))}
