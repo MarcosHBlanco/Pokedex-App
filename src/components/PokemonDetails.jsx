@@ -12,6 +12,36 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 	const [selectedMoves, setSelectedMoves] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [displayedMoves, setDisplayedMoves] = useState([]);
+	const [abilities, setAllAbilities] = useState([]);
+
+	useEffect(() => {
+		if (!pokemon?.abilities) return;
+		const fetchAbilityEffects = async () => {
+			try {
+				const responses = await Promise.all(
+					pokemon.abilities.map((a) => axios.get(a.ability.url))
+				);
+
+				const abilitiesWithEffects = responses.map((res) => {
+					// find the English effect entry
+					const englishEntry = res.data.effect_entries.find(
+						(entry) => entry.language.name === "en"
+					);
+					return {
+						name: res.data.name, // ability name
+						effect: englishEntry?.effect ?? "No effect found", // full description
+						shortEffect: englishEntry?.short_effect, // short description
+					};
+				});
+
+				setAllAbilities(abilitiesWithEffects);
+			} catch (err) {
+				console.error(err);
+			}
+		};
+
+		fetchAbilityEffects();
+	}, [pokemon]);
 
 	useEffect(() => {
 		if (!pokemon?.moves) return;
@@ -101,6 +131,14 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 					</p>
 				</div>
 			</div>
+			<section className="mt-6">
+				<h3 className="text-xl font-semibold mb-2 text-gray-800">Abilities</h3>
+				{abilities.map((ability, index) => (
+					<p key={index}>
+						{ability.name} : {ability.effect}
+					</p>
+				))}
+			</section>
 
 			<section className="mt-6">
 				<h3 className="text-xl font-semibold mb-2 text-gray-800">
