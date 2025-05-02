@@ -23,14 +23,13 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 				);
 
 				const abilitiesWithEffects = responses.map((res) => {
-					// find the English effect entry
 					const englishEntry = res.data.effect_entries.find(
 						(entry) => entry.language.name === "en"
 					);
 					return {
-						name: res.data.name, // ability name
-						effect: englishEntry?.effect ?? "No effect found", // full description
-						shortEffect: englishEntry?.short_effect, // short description
+						name: res.data.name,
+						effect: englishEntry?.effect ?? "No effect found",
+						shortEffect: englishEntry?.short_effect,
 					};
 				});
 
@@ -134,8 +133,8 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 			<section className="mt-6">
 				<h3 className="text-xl font-semibold mb-2 text-gray-800">Abilities</h3>
 				{abilities.map((ability, index) => (
-					<p key={index}>
-						{ability.name} : {ability.effect}
+					<p key={index} className="m-2">
+						<span className="font-bold">{ability.name}</span> : {ability.effect}
 					</p>
 				))}
 			</section>

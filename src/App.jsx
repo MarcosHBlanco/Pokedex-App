@@ -70,8 +70,10 @@ function App() {
 					axios.get(pokemon.url).then((res) => res.data)
 				)
 			);
-			setPokemons(detailed);
 			setNextURL(null);
+			setShowingPokedex(false);
+			setSelectedPokemon(null);
+			setPokemons(detailed);
 		} catch (err) {
 			console.error(err);
 		}
@@ -205,7 +207,11 @@ function App() {
 						hasMore={Boolean(nextURL)}
 						loader={<p className="text-center text-indigo-500">Loading...</p>}
 						endMessage={
-							<p className="text-center text-indigo-500">No more Pokémon</p>
+							<div className="flex justify-center">
+								<p className=" m-2 p-2 border-indigo-600 rounded bg-indigo-500 text-white w-fit">
+									No more Pokémon
+								</p>
+							</div>
 						}
 					>
 						<PokemonList
