@@ -37,7 +37,12 @@ function App() {
 
 	// Serialize and prompt download
 	const downloadPokedex = () => {
-		const data = JSON.stringify(pokedex, null, 2);
+		const copyPokedex = pokedex;
+		copyPokedex.map((pokemon) => delete pokemon.sprites);
+		copyPokedex.map((pokemon) => delete pokemon.cries);
+		copyPokedex.map((pokemon) => delete pokemon.game_indices);
+
+		const data = JSON.stringify(copyPokedex, null, 2);
 		const blob = new Blob([data], { type: "text/plain" });
 		const url = URL.createObjectURL(blob);
 		const link = document.createElement("a");
@@ -50,7 +55,7 @@ function App() {
 	};
 
 	const showPokedexPokemon = () => {
-		console.log(pokemons);
+		console.log(pokedex);
 		setShowingPokedex(true);
 		setSelectedPokemon(null);
 		setPokemons(pokedex);
