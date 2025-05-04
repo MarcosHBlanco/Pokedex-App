@@ -133,7 +133,7 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 			<section className="mt-6">
 				<h3 className="text-xl font-semibold mb-2 text-gray-800">Abilities</h3>
 				{abilities.map((ability, index) => (
-					<p key={index} className="m-2">
+					<p key={index} className="my-4 border-b-gray-200 border-b-2">
 						<span className="font-bold">{ability.name}</span> : {ability.effect}
 					</p>
 				))}

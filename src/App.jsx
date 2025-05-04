@@ -185,7 +185,7 @@ function App() {
 				)}
 			</div>
 			<div className="flex justify-center">
-				<div className="m-5 grid grid-cols-5 grid-rows-4 gap-2 w-1/2 ">
+				<div className="m-5 grid lg:grid-cols-5 md:grid-cols-3 grid-rows-4 gap-2 w-1/2 grid-cols-2 ">
 					{Object.entries(BUTTON_TYPES).map(([key, value]) => (
 						<button
 							key={key}
