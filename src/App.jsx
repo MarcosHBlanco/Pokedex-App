@@ -8,6 +8,7 @@ import PokemonDetails from "./components/PokemonDetails";
 import BUTTON_TYPES from "../src/assets/ButtonTypes.js";
 
 function App() {
+	const [allPokes, setAllPokes] = useState([]);
 	const [pokemons, setPokemons] = useState([]);
 	const [nextURL, setNextURL] = useState(
 		"https://pokeapi.co/api/v2/pokemon?limit=20"
@@ -88,16 +89,48 @@ function App() {
 		}
 	};
 
-	const handleSearch = () => {
+	const handleSearchPoke = () => {
+		const term = searchTerm.toLowerCase().trim();
+		if (!term) return fetchPokes();
+
+		const filtered = allPokes.filter((p) =>
+			p.name.toLowerCase().includes(term)
+		);
+
+		if (filtered.length) {
+			Promise.all(
+				filtered.map((poke) => axios.get(poke.url).then((r) => r.data))
+			)
+				.then((detailed) => setPokemons(detailed))
+				.catch(console.error);
+		} else {
+			setPokemons([]);
+		}
+
+		setSelectedPokemon(null);
+		setShowingPokedex(false);
+		setNextURL(null);
+	};
+
+	// const handleSearch = () => {
+	// 	axios
+	// 		.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`)
+	// 		.then((response) => {
+	// 			const result = response.data;
+	// 			setPokemons([result]);
+	// 			setSelectedPokemon(result);
+	// 			setShowingPokedex(false);
+	// 		})
+	// 		.catch((err) => console.error(err));
+	// };
+
+	const fetchAllPokemons = () => {
 		axios
-			.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`)
-			.then((response) => {
-				const result = response.data;
-				setPokemons([result]);
-				setSelectedPokemon(result);
-				setShowingPokedex(false);
+			.get("https://pokeapi.co/api/v2/pokemon?limit=2000&offset=0")
+			.then(({ data }) => {
+				setAllPokes(data.results);
 			})
-			.catch((err) => console.error(err));
+			.catch(console.error);
 	};
 
 	const fetchPokes = () => {
@@ -145,6 +178,7 @@ function App() {
 
 	useEffect(() => {
 		fetchPokes();
+		fetchAllPokemons();
 	}, []);
 
 	return (
@@ -175,7 +209,7 @@ function App() {
 				<SearchBar
 					searchTerm={searchTerm}
 					setSearchTerm={setSearchTerm}
-					handleSearch={handleSearch}
+					handleSearch={handleSearchPoke}
 					placeHolder={"Search Pokemon..."}
 				/>
 				<button
