@@ -41,6 +41,7 @@ function App() {
 		copyPokedex.map((pokemon) => delete pokemon.sprites);
 		copyPokedex.map((pokemon) => delete pokemon.cries);
 		copyPokedex.map((pokemon) => delete pokemon.game_indices);
+		copyPokedex.map((pokemon) => delete pokemon.held_items);
 
 		const data = JSON.stringify(copyPokedex, null, 2);
 		const blob = new Blob([data], { type: "text/plain" });
