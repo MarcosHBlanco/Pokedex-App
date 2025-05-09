@@ -36,7 +36,6 @@ function App() {
 		console.log(pokedex);
 	};
 
-	// Serialize and prompt download
 	const downloadPokedex = () => {
 		const copyPokedexCleaned = pokedex.map(
 			({ sprites, cries, game_indices, held_items, ...rest }) => rest

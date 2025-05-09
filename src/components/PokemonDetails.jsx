@@ -13,6 +13,7 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [displayedMoves, setDisplayedMoves] = useState([]);
 	const [abilities, setAllAbilities] = useState([]);
+	const [pokeEvoNames, setPokeEvoNames] = useState([]);
 
 	useEffect(() => {
 		if (!pokemon?.abilities) return;
@@ -41,6 +42,36 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 
 		fetchAbilityEffects();
 	}, [pokemon]);
+
+	useEffect(() => {
+		const fetchEvolutionChain = async () => {
+			const pokeSpecies = await axios.get(
+				`https://pokeapi.co/api/v2/pokemon-species/${pokemon.name}`
+			);
+			const evoChainUrl = pokeSpecies.data.evolution_chain.url;
+			const evoChain = await axios.get(evoChainUrl);
+			const chain = evoChain.data.chain;
+
+			const pokeNames = [];
+			function traverseChain(node) {
+				pokeNames.push(node.species.name);
+				node.evolves_to.forEach((child) => traverseChain(child));
+			}
+			traverseChain(chain);
+
+			const details = await Promise.all(
+				pokeNames.map((name) =>
+					axios
+						.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+						.then((r) => r.data)
+				)
+			);
+			setPokeEvoNames(details);
+
+			return pokeNames;
+		};
+		fetchEvolutionChain();
+	}, [pokemon.name]);
 
 	useEffect(() => {
 		if (!pokemon?.moves) return;
@@ -137,6 +168,16 @@ export default function PokemonDetails({ pokemon, addToPokedex }) {
 						<span className="font-bold">{ability.name}</span> : {ability.effect}
 					</p>
 				))}
+			</section>
+			<section>
+				<h3 className="text-xl font-semibold mb-2 text-gray-800">
+					Evolution chart
+				</h3>
+				<div className="flex justify-around	">
+					{pokeEvoNames.map((poke, index) => (
+						<img key={index} src={poke.sprites.front_default} />
+					))}
+				</div>
 			</section>
 
 			<section className="mt-6">
