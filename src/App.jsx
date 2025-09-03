@@ -111,18 +111,6 @@ function App() {
 		setNextURL(null);
 	};
 
-	// const handleSearch = () => {
-	// 	axios
-	// 		.get(`https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`)
-	// 		.then((response) => {
-	// 			const result = response.data;
-	// 			setPokemons([result]);
-	// 			setSelectedPokemon(result);
-	// 			setShowingPokedex(false);
-	// 		})
-	// 		.catch((err) => console.error(err));
-	// };
-
 	const fetchAllPokemons = () => {
 		axios
 			.get("https://pokeapi.co/api/v2/pokemon?limit=2000&offset=0")
