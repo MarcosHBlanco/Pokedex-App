@@ -48,14 +48,13 @@ Node.js and Express – To power the server and APIs.
 
 [Database] – (e.g., MongoDB, PostgreSQL, SQLite) for data persistence and user management.
 
-Planned Enhancements
+Planned Enhancements:
 User Authentication: Implementation of a secure login/signup system.
 
 Back-End Integration: Full-stack API integration to manage Pokémon data and user profiles.
 
 Enhanced Interactivity: Additional features such as favoriting Pokémon, user stats, and custom collections.
 
-Contributing
 Contributions are welcome! If you have suggestions, bug fixes, or new feature ideas, feel free to contact me!
 
 Contact
